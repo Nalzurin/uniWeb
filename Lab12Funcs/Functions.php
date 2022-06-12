@@ -2,17 +2,28 @@
 <?php
 class Func
 {
-    function DeleteRecord($connection,$deleteID)
+    public $connection, $ID, $Name, $Race, $Class, $Description, $Image, $Query, $Category;
+
+    function __construct($_connection, $_ID, $_Name, $_Race, $_Class, $_Description, $_Image,$_Query,$_Category)
     {
-        $sql = "DELETE FROM `character` WHERE `ID` ='".$deleteID."'";
-        mysqli_query($connection, $sql);
+        $this->connection = $_connection;
+        $this->ID = $_ID;
+        $this->Name = $_Name;
+        $this->Race = $_Race;
+        $this->Class = $_Class;
+        $this->Description = $_Description;
+        $this->Image = $_Image;
+        $this->Query = $_Query;
+        $this->Category = $_Category;
+
     }
-    function AddRecord($connection, $ID, $Name, $Race, $Class, $Description, $Image)
+    function DeleteRecord()
     {
-
-
-
-
+        $sql = "DELETE FROM `character` WHERE `ID` ='".$this->ID."'";
+        mysqli_query($this->connection, $sql);
+    }
+    function AddRecord()
+    {
         if(isset($_FILES['image'])){
             $errors= array();
             $file_name = $_FILES['image']['name'];
@@ -31,42 +42,42 @@ class Func
 
             if(empty($errors)==true){
                 move_uploaded_file($file_tmp,"images/".$file_name);
-                $Image = 'images/'.$file_name.'';
+                $this->Image = 'images/'.$file_name.'';
                 echo "Success";
             }else{
                 print_r($errors);
             }
         }
 
-        if(!empty($ID))
+        if(!empty($this->ID))
         {
-            $query = "UPDATE `character` SET `Name` = '".$Name."', `Race` = '".$Race."', `Class` = '".$Class."', `Description` = '".$Description."', `Image` = '".$Image."'  WHERE `character`.`ID` = '".$ID."'";
-            $result = mysqli_query($connection, $query);
+            $sql = "UPDATE `character` SET `Name` = '".$this->Name."', `Race` = '".$this->Race."', `Class` = '".$this->Class."', `Description` = '".$this->Description."', `Image` = '".$this->Image."'  WHERE `character`.`ID` = '".$this->ID."'";
+            $result = mysqli_query($this->connection, $sql);
             header("location:Lab11.php");
         }
         else {
 
 
-            $query = "INSERT INTO `character` (`Name`, `Image`, `Class`, `Race`, `Description`) VALUES ('".$Name."','".$Image."', '". $Class."', '".$Race."', '".$Description."');";
-            $result = mysqli_query($connection, $query);
+            $sql = "INSERT INTO `character` (`Name`, `Image`, `Class`, `Race`, `Description`) VALUES ('".$this->Name."','".$this->Image."', '". $this->Class."', '".$this->Race."', '".$this->Description."');";
+            $result = mysqli_query($this->connection, $sql);
             header("location:Lab11.php");
 
         }
     }
 
-    function SearchRecords($connection, $query, $category)
+    function SearchRecords()
     {
-        $query = htmlspecialchars($query);
+        $this->query = htmlspecialchars($this->query);
 
-        if($category == 'RaceRadio')
+        if($this->category == 'RaceRadio')
         {
-            $sql = "SELECT * FROM `character` WHERE (`Race` LIKE '%".$query."%')";
+            $sql = "SELECT * FROM `character` WHERE (`Race` LIKE '%".$this->query."%')";
             echo 'Race is Chosen';
 
         }
-        else if($category == 'ClassRadio')
+        else if($this->category == 'ClassRadio')
         {
-            $sql = "SELECT * FROM `character` WHERE (`Class` LIKE '%".$query."%')";
+            $sql = "SELECT * FROM `character` WHERE (`Class` LIKE '%".$this->query."%')";
             echo 'Class is Chosen';
         }
         else
@@ -78,16 +89,12 @@ class Func
         header("location:Lab11.php");
 
     }
-    function SearchById($connection, $ID, $Name, $Race, $Class, $Description, $Image)
+    function SearchById()
     {
-        $sql = "SELECT * FROM `character` WHERE `ID` ='".$ID."'";
-        $result = mysqli_query($connection, $sql);
-        $row = mysqli_fetch_assoc($result);
-        $Name = $row["Name"];
-        $Race = $row["Race"];
-        $Class = $row["Class"];
-        $Description = $row["Description"];
-        $Image = $row["Image"];
+        $sql = "SELECT * FROM `character` WHERE `ID` ='".$this->ID."'";
+        $result = mysqli_query($this->connection, $sql);
+        return $result;
+
 
     }
 }

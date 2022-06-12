@@ -1,12 +1,19 @@
 
 <?php
-include "Lab12Funcs/Connection.php";
-    $ID = $_POST['EditButton'];
-    $Name = $_POST['Name'];
-    $Image = $_POST['Image'];
-    $Race = $_POST['Race'];
-    $Class = $_POST['Class'];
-    $Description = $_POST['Description'];
+require "Lab12Funcs/Connection.php";
+require "Lab12Funcs/Functions.php";
+$ID = $_POST['EditButton'];
+$Name = $Class = $Race = $Description = $Image = '';
+$Func = new Func($connection, $ID, null, null, null, null, null, null, null);
+$result =$Func -> SearchById();
+        $row = mysqli_fetch_assoc($result);
+        $Name = $row["Name"];
+        $Race = $row["Race"];
+        $Class = $row["Class"];
+        $Description = $row["Description"];
+        $Image = $row["Image"];
+        $ID = $row["ID"];
+
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +31,7 @@ include "Lab12Funcs/Connection.php";
     <?php include "Lab12Funcs/Menu.php"?>
 
     <section class="u-clearfix u-section-1" id="sec-84ec">
-        <form action="Lab11Add.php" method="post" enctype="multipart/form-data">
+        <form action="Lab11.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="ID" value="<?=$ID?>" /><input type="hidden" name="Image" value="<?=$Image?>" />
             <div class="u-clearfix u-gutter-10 u-layout-wrap u-layout-wrap-1">
                 <div class="u-gutter-0 u-layout">
@@ -46,19 +53,20 @@ include "Lab12Funcs/Connection.php";
                                 <div class="u-align-left u-container-style u-layout-cell u-size-15 u-layout-cell-2">
                                     <div class="u-container-layout u-container-layout-2">
                                         <h3 class="u-align-center u-text u-text-body-alt-color u-text-default u-text-1">Name</h3>
-                                        <input type="text" name="Name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" value="<?=$Name?>" />
+                                        <input type="text" name="Name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" value="<?=$Name?>" pattern="[À-ß¥ª²¯à-ÿ´º³¿A-Za-z\s]+" />
                                     </div>
                                 </div>
                                 <div class="u-align-left u-container-style u-layout-cell u-size-15 u-layout-cell-3">
                                     <div class="u-container-layout u-container-layout-3">
                                         <h6 class="u-align-center u-text u-text-body-alt-color u-text-default u-text-2">Race</h6>
-                                        <input type="text" name="Race" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" value="<?=$Race?>" />
+                                        <input type="text" name="Race" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" value="<?=$Race?>" pattern="[À-ß¥ª²¯à-ÿ´º³¿A-Za-z\s]+" />
                                     </div>
                                 </div>
-                                <div class="u-container-style u-layout-cell u-size-15 u-layout-cell-4">
+                                <div class="
+                                            u-container-style u-layout-cell u-size-15 u-layout-cell-4" />
                                     <div class="u-container-layout u-container-layout-4">
                                         <h6 class="u-align-center u-text u-text-body-alt-color u-text-default u-text-3">Class</h6>
-                                        <input type="text" name="DNDClass" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" value="<?=$Class?>" />
+                                        <input type="text" name="Class" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" value="<?=$Class?>" pattern="[À-ß¥ª²¯à-ÿ´º³¿A-Za-z\s]+" />
                                     </div>
                                 </div>
                                 <div class="u-container-style u-layout-cell u-size-15 u-layout-cell-5">
@@ -75,7 +83,7 @@ include "Lab12Funcs/Connection.php";
                                 </div>
                                 <div class="u-container-style u-layout-cell  u-layout-cell-5">
                                     <div class="u-container-layout">
-                                        <input type="submit" name="Submit" class="u-align-center u-text  u-text-4" value="Submit" />
+                                        <input type="submit" name="Submit" class="u-align-center u-text  u-text-4" value="SaveEdit" />
                                     </div>
                                 </div>
 
