@@ -78,6 +78,18 @@ class Func
         header("location:Lab11.php");
 
     }
+    function SearchById($connection, $ID, $Name, $Race, $Class, $Description, $Image)
+    {
+        $sql = "SELECT * FROM `character` WHERE `ID` ='".$ID."'";
+        $result = mysqli_query($connection, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $Name = $row["Name"];
+        $Race = $row["Race"];
+        $Class = $row["Class"];
+        $Description = $row["Description"];
+        $Image = $row["Image"];
+
+    }
 }
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 include "Lab12Funcs/Connection.php";
 include "Lab12Funcs/Functions.php";
-$NameError = $Name = $RaceError = $Race = "";
+$NameError = $Name = $RaceError = $Race = $Image = "";
 $ClassError = $Class = $Description = "";
 $Func = new Func();
 if(isset($_POST['DeleteButton']) && is_numeric($_POST['DeleteButton']))
@@ -29,16 +29,7 @@ if(isset($_POST['Search']) && $_POST['Search'] == "Searching" )
     $Func ->SearchRecords($connection, $query, $category);
 }
 
-if(isset($_POST['EditButton']) && is_numeric($_POST['EditButton']))
-{
-    $ID = $_POST['EditButton'];
-    $Name = $_POST['Name'];
-    $Image = $_POST['Image'];
-    $Race = $_POST['Race'];
-    $Class = $_POST['Class'];
-    $Description = $_POST['Description'];
 
-}
 
 
 ?>
@@ -86,11 +77,7 @@ $(document).ready(function(){
                 $("#searchsection").hide();
                 $("#Display").hide();
             }
-            else {
-                $("#Display").show();
-                $("#EditSection").hide();
-            }
-    });
+            });
 
 });
 
@@ -170,97 +157,17 @@ $(document).ready(function(){
             </section>
 
 
-    <section id="Display" style="pointer-events : none;">
+
+
+
+
+
+    <section class="u-clearfix u-section-1 EditForm" id="EditSection" name="EditSection">
         <?php
-
-            if(isset($_SESSION['SearchResults']))
-            {
-                $sql = $_SESSION['SearchResults'];
-
-            }
-            else
-            {
-                $sql = "SELECT * FROM `character` ";
-
-            }
-            $result = mysqli_query($connection, $sql);
-            if($result->num_rows > 0)
-    {
-            while($row = mysqli_fetch_assoc($result)) {
-                echo " <section class='u-clearfix u-section-1' id='sec-ff01'>
-
-             <div class='u-clearfix u-sheet u-sheet-1 '>
-
-             <section class='u-clearfix u-section-1 ' id='sec-84ec'>
-             <div class='u-clearfix u-gutter-10 u-layout-wrap u-layout-wrap-1'>
-             <div class='u-gutter-0 u-layout'>
-
-             <form action = 'Lab11.php' method = 'post'>
-               <input type='hidden' name='Name' value='".$row['Name']."'>
-               <input type='hidden' name='Image' value='".$row['Image']."'>
-               <input type='hidden' name='Class' value='".$row['Class']."'>
-               <input type='hidden' name='Race' value='".$row['Race']."'>
-               <input type='hidden' name='Description' value='".$row['Description']."'>
-            <div class='u-layout-row'>
-             <div class='u-size-30'>
-              <div class='u-layout-col'>
-                      <div>
-                           <div class='u-container-layout u-valign-middle u-container-layout-1'>
-                             <img class='u-align-left u-container-style u-image u-layout-cell u-size-60 u-image-1' data-image-width='1080' data-image-height='1080'  src='".$row['Image']."'>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class='u-size-30'>
-              <div class='u-layout-col'>
-                <div class='u-align-left u-container-style u-layout-cell'>
-                  <div class='u-container-layout u-container-layout-2'>
-                     <button type='Submit'   name='EditButton' id='EditButton'  class='u-image u-image-default u-preserve-proportions u-image-2' style ='background:0'  Value = '".$row['ID']."'> <img src='images/Edit.png' width='40px' height ='40px'></button></form>
-                  </div>
-                    <div class='u-container-layout u-container-layout-2'>
-                    <form  action = 'Lab11.php' method = 'post' style = 'width: 50px'>
-                     <button type='Submit'   name='DeleteButton' id='DeleteButton'  class='u-image u-image-default u-preserve-proportions u-image-3' style ='background:0'  Value = '".$row['ID']."'> <img src='images/Trash.png' width='40px' height ='40px'></button></form>
-                   </div>
-
-                </div>
-                <div class='u-container-layout u-container-layout-2'>
-                <h3 class='u-align-center u-text u-text-body-alt-color u-text-default u-text-1'>" .$row['Name']. "</h3>
-                 </div>
-                <div class='u-align-left u-container-style u-layout-cell u-size-15 u-layout-cell-3'>
-                  <div class='u-container-layout u-container-layout-3'>
-                    <h6 class='u-align-center u-text u-text-body-alt-color u-text-default u-text-2'>" .$row['Class']. "</h6>
-                  </div>
-                </div>
-                <div class='u-container-style u-layout-cell u-size-15 u-layout-cell-4'>
-                  <div class='u-container-layout u-container-layout-4'>
-                    <h6 class='u-align-center u-text u-text-body-alt-color u-text-default u-text-3'>" .$row['Race']. "</h6>
-                  </div>
-                </div>
-                <div class='u-container-style u-layout-cell u-size-15 u-layout-cell-5'>
-                  <div class='u-container-layout u-container-layout-5'>
-                    <p class='u-align-center u-text u-text-body-alt-color u-text-default u-text-4'>" .$row['Description']. "</p>
-                  </div>
-                </div>
-              </div>
-             </div>
-             </div>
-             </div>
-             </div>
-             </section>
-             </div>
-            </section>
-
-             <hr>";
-
-        }
-    }
+        $ID = $_POST["EditButton"];
+        $Func ->SearchById($connection, $ID, $Name, $Race, $Class, $Description, $Image);
 
         ?>
-    </section>
-
-
-
-    <section class="u-clearfix u-section-1 EditForm " id="EditSection" name="EditSection">
         <form action="Lab11.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="ID" value="<?=$ID?>" /><input type="hidden" name="Image" value="<?=$Image?>" />
             <div class="u-clearfix u-gutter-10 u-layout-wrap u-layout-wrap-1">
@@ -349,6 +256,93 @@ $(document).ready(function(){
 
         </form>
     </section>
+
+
+
+    <section id="Display" style="pointer-events : none;">
+        <?php
+
+            if(isset($_SESSION['SearchResults']))
+            {
+                $sql = $_SESSION['SearchResults'];
+
+            }
+            else
+            {
+                $sql = "SELECT * FROM `character` ";
+
+            }
+            $result = mysqli_query($connection, $sql);
+            if($result->num_rows > 0)
+    {
+            while($row = mysqli_fetch_assoc($result)) {
+                echo " <section class='u-clearfix u-section-1' id='sec-ff01'>
+
+             <div class='u-clearfix u-sheet u-sheet-1 '>
+
+             <section class='u-clearfix u-section-1 ' id='sec-84ec'>
+             <div class='u-clearfix u-gutter-10 u-layout-wrap u-layout-wrap-1'>
+             <div class='u-gutter-0 u-layout'>
+
+
+            <div class='u-layout-row'>
+             <div class='u-size-30'>
+              <div class='u-layout-col'>
+                      <div>
+                           <div class='u-container-layout u-valign-middle u-container-layout-1'>
+                             <img class='u-align-left u-container-style u-image u-layout-cell u-size-60 u-image-1' data-image-width='1080' data-image-height='1080'  src='".$row['Image']."'>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='u-size-30'>
+              <div class='u-layout-col'>
+                <div class='u-align-left u-container-style u-layout-cell'>
+                  <div class='u-container-layout u-container-layout-2'>
+                    <form action = '' method = 'post'>
+                     <button type='Submit'   name='EditButton' id='EditButton'  class='u-image u-image-default u-preserve-proportions u-image-2' style ='background:0'  Value = '".$row['ID']."'> <img src='images/Edit.png' width='40px' height ='40px'></button></form>
+                  </div>
+                    <div class='u-container-layout u-container-layout-2'>
+                    <form  action = 'Lab11.php' method = 'post' style = 'width: 50px'>
+                     <button type='Submit'   name='DeleteButton' id='DeleteButton'  class='u-image u-image-default u-preserve-proportions u-image-3' style ='background:0'  Value = '".$row['ID']."'> <img src='images/Trash.png' width='40px' height ='40px'></button></form>
+                   </div>
+
+                </div>
+                <div class='u-container-layout u-container-layout-2'>
+                <h3 class='u-align-center u-text u-text-body-alt-color u-text-default u-text-1'>" .$row['Name']. "</h3>
+                 </div>
+                <div class='u-align-left u-container-style u-layout-cell u-size-15 u-layout-cell-3'>
+                  <div class='u-container-layout u-container-layout-3'>
+                    <h6 class='u-align-center u-text u-text-body-alt-color u-text-default u-text-2'>" .$row['Class']. "</h6>
+                  </div>
+                </div>
+                <div class='u-container-style u-layout-cell u-size-15 u-layout-cell-4'>
+                  <div class='u-container-layout u-container-layout-4'>
+                    <h6 class='u-align-center u-text u-text-body-alt-color u-text-default u-text-3'>" .$row['Race']. "</h6>
+                  </div>
+                </div>
+                <div class='u-container-style u-layout-cell u-size-15 u-layout-cell-5'>
+                  <div class='u-container-layout u-container-layout-5'>
+                    <p class='u-align-center u-text u-text-body-alt-color u-text-default u-text-4'>" .$row['Description']. "</p>
+                  </div>
+                </div>
+              </div>
+             </div>
+             </div>
+             </div>
+             </div>
+             </section>
+             </div>
+            </section>
+
+             <hr>";
+
+        }
+    }
+
+        ?>
+    </section>
+
 
 </body>
 </html>
