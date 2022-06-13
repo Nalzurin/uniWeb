@@ -99,7 +99,7 @@ $(document).ready(function(){
 
 
     <script>
-        $(document).ready(function () {
+
             function SearchFind() {
                         var html1 = '<ul>';
                 var html2 = '';
@@ -123,18 +123,18 @@ $(document).ready(function(){
 
 
 
-                    html1 += "<li> <a href='#tabs-" + i + "'>" + " <h3 style='color:white'> Result" + i +  + " </h3> " + "</a></li>";
+                    html1 += "<li> <a href='#tabs-" + i+1 + "'>" + " <h3 style='color:white'> Result" + i+1 + " </h3> </a></li>";
 
 
 
                 }
 
-                html += '</ul>'
+                html1 += '</ul>'
 
-                for (let i = 0; i < searchresult.length; i++) {
+                for (let j = 0; j < searchresult.length; j++) {
 
 
-                html2 = "<div id='tabs-" + i +"'>" + searchresut.innerHTML + "</div>";
+                    html2 = "<div id='tabs-" + j + "'>" + searchresult[j].innerHTML + "</div>";
 
 
                 }
@@ -145,8 +145,6 @@ $(document).ready(function(){
 
 
             };
-
-        });
 
         
     </script>
