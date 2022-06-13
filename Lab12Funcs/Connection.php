@@ -7,6 +7,6 @@ $database = "heroes";
 $connection = mysqli_connect($servername, $username, null, $database);
 if (!$connection) {
     die("Connection failed: " . mysqli_connect_error());
-
 }
+
 ?>

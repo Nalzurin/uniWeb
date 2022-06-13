@@ -53,20 +53,19 @@ $result =$Func -> SearchById();
                                 <div class="u-align-left u-container-style u-layout-cell u-size-15 u-layout-cell-2">
                                     <div class="u-container-layout u-container-layout-2">
                                         <h3 class="u-align-center u-text u-text-body-alt-color u-text-default u-text-1">Name</h3>
-                                        <input type="text" name="Name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" value="<?=$Name?>" pattern="[À-ß¥ª²¯à-ÿ´º³¿A-Za-z\s]+" />
+                                        <input type="text" name="Name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" value="<?=$Name?>" pattern="[À-ß¥ª²¯à-ÿ´º³¿A-Za-z\s]">
                                     </div>
                                 </div>
                                 <div class="u-align-left u-container-style u-layout-cell u-size-15 u-layout-cell-3">
                                     <div class="u-container-layout u-container-layout-3">
                                         <h6 class="u-align-center u-text u-text-body-alt-color u-text-default u-text-2">Race</h6>
-                                        <input type="text" name="Race" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" value="<?=$Race?>" pattern="[À-ß¥ª²¯à-ÿ´º³¿A-Za-z\s]+" />
+                                        <input type="text" name="Race" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" value="<?=$Race?>" pattern="[À-ß¥ª²¯à-ÿ´º³¿A-Za-z\s]">
                                     </div>
                                 </div>
-                                <div class="
-                                            u-container-style u-layout-cell u-size-15 u-layout-cell-4" />
+                                <div class="u-container-style u-layout-cell u-size-15 u-layout-cell-4" />
                                     <div class="u-container-layout u-container-layout-4">
                                         <h6 class="u-align-center u-text u-text-body-alt-color u-text-default u-text-3">Class</h6>
-                                        <input type="text" name="Class" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" value="<?=$Class?>" pattern="[À-ß¥ª²¯à-ÿ´º³¿A-Za-z\s]+" />
+                                        <input type="text" name="Class" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" value="<?=$Class?>"pattern="[À-ß¥ª²¯à-ÿ´º³¿A-Za-z\s]">
                                     </div>
                                 </div>
                                 <div class="u-container-style u-layout-cell u-size-15 u-layout-cell-5">

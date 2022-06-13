@@ -1,4 +1,10 @@
- <header class="u-clearfix u-gradient u-header u-sticky u-sticky-bc77 u-header" id="sec-8a2c">
+<?php
+if(!isset($_SESSION["Session"]))
+    {
+        header("Location:LoginPage.php");
+    }
+?>
+<header class="u-clearfix u-gradient u-header u-sticky u-sticky-bc77 u-header" id="sec-8a2c">
         <div class="u-clearfix u-sheet u-sheet-1">
             <a href="Home.html" data-page-id="71010038" class="u-align-left-sm u-align-left-xs u-image u-logo u-image-1" data-image-width="256" data-image-height="256" title="Home">
                 <img src="images/token_11.png" class="u-logo-image u-logo-image-1" />
@@ -19,10 +25,13 @@
                 <div class="u-custom-menu u-nav-container">
                     <ul class="u-nav u-unstyled u-nav-1">
                         <li class="u-nav-item">
+                            <p style="color:white">
+                                Welcome,<?=$_SESSION["Session"]?>!<p>
+                        </li><li class="u-nav-item">
                             <a class="u-button-style u-nav-link u-text-active-white u-text-body-alt-color u-text-hover-grey-50" href="Home.html" style="padding: 10px 20px;">Home</a>
                         </li><li class="u-nav-item">
                             <a class="u-button-style u-nav-link u-text-active-white u-text-body-alt-color u-text-hover-grey-50" href="heroes.html" style="padding: 10px 20px;">Герої</a><div class="u-nav-popup">
-                                <ul class="u-h-spacing-20 u-nav u-unstyled u-v-spacing-10">
+                                <ul class="u-h-spacing-20 u-nav u-unstyled u-v-spacing-10">         
                                     <li class="u-nav-item">
                                         <a class="u-button-style u-nav-link u-white" href="Талос.html">Талос</a>
                                     </li><li class="u-nav-item">
@@ -42,6 +51,12 @@
                             <a class="u-button-style u-nav-link u-text-active-white u-text-body-alt-color u-text-hover-grey-50" href="lab10.php" style="padding: 10px 20px;">lab10</a>
                         </li><li class="u-nav-item">
                             <a class="u-button-style u-nav-link u-text-active-white u-text-body-alt-color u-text-hover-grey-50" href="Lab11.php" style="padding: 10px 20px;">Lab11</a>
+                        </li>
+                        <li class="u-nav-item">
+                            <form action="Logout.php" method="post">
+                                <input type="submit"  name="Logout" value="logout"padding: 10px 20px;">
+                            </form>
+   
                         </li>
                     </ul>
                 </div>

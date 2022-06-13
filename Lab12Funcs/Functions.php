@@ -1,7 +1,13 @@
 
 <?php
+
 class Func
 {
+    function logout()
+    {
+        unset($_SESSION["Session"]);
+        header("location:LoginPage.php");
+    }
     public $connection, $ID, $Name, $Race, $Class, $Description, $Image, $Query, $Category;
 
     function __construct($_connection, $_ID, $_Name, $_Race, $_Class, $_Description, $_Image,$_Query,$_Category)
